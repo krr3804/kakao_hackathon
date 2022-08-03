@@ -28,7 +28,7 @@ for l in lines:
     l = l.split("\t")
     review.append(
         {"star" : l[0],
-         "comment" : l[1],
+         "comment" : l[1].re(),
          "date" : random_date("2021-1-1 23:59:59", "2022-1-1 23:59:59", random.random())})
 
 with open('review.json','w',encoding='utf-8') as f:
