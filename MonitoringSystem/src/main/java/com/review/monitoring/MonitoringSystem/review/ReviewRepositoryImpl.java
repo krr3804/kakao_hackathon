@@ -1,0 +1,23 @@
+package com.review.monitoring.MonitoringSystem.review;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+
+import static com.review.monitoring.MonitoringSystem.review.QReview.review;
+@RequiredArgsConstructor
+@Repository
+public class ReviewRepositoryImpl{
+    private final EntityManager em;
+
+    public List<Review> getReviewData(){
+        return em.createQuery("select r from Review r where r.feedback !=-1 and r.department != 'UCF'", Review.class)
+                .getResultList();
+    }
+
+
+
+}
