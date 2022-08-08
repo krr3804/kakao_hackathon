@@ -19,32 +19,32 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class TestScheduler {
-    @Value("${jwt.secret}") String secret;
+//    @Value("${jwt.secret}") String secret;
     private final TestElasticsearchRepository testElasticsearchRepository;
     private final ReviewRepositoryImpl reviewRepository;
-    @Scheduled(fixedRate=300000)
-    public void testScheduler(){
-
-        System.out.println(secret);
-        List<Review> reviewList = reviewRepository.getReviewData();
-        System.out.println("start"+ reviewList.size());
-        int cnt = 0;
-        for(Review r: reviewList ){
-            cnt = cnt+1;
-            if(cnt%1000==0){
-                System.out.println(cnt);
-                System.out.println(r.getDepartment());
-            }
-
-            testElasticsearchRepository.save(ElasticDocument.builder()
-                    .comment(r.getComment())
-                    .date(r.getDate())
-                    .feedback(r.getFeedback())
-                    .score(r.getScore())
-                    .department(r.getDepartment())
-                    .star(r.getStar())
-                    .mu_keyword(r.getMu_keyword())
-                    .build());
-        }
-    }
+//    @Scheduled(fixedRate=300000)
+//    public void testScheduler(){
+//
+//        System.out.println(secret);
+//        List<Review> reviewList = reviewRepository.getReviewData();
+//        System.out.println("start"+ reviewList.size());
+//        int cnt = 0;
+//        for(Review r: reviewList ){
+//            cnt = cnt+1;
+//            if(cnt%1000==0){
+//                System.out.println(cnt);
+//                System.out.println(r.getDepartment());
+//            }
+//
+//            testElasticsearchRepository.save(ElasticDocument.builder()
+//                    .comment(r.getComment())
+//                    .date(r.getDate())
+//                    .feedback(r.getFeedback())
+//                    .score(r.getScore())
+//                    .department(r.getDepartment())
+//                    .star(r.getStar())
+//                    .mu_keyword(r.getMu_keyword())
+//                    .build());
+//        }
+//    }
 }

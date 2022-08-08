@@ -1,24 +1,11 @@
-// // 쿼리 dsl s
-buildscript {
-	repositories {
-		maven {
-			url "https://plugins.gradle.org/m2/"
-		}
-	}
-	dependencies {
-		classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10"
-	}
-}
-
 plugins {
-	id 'org.springframework.boot' version '2.6.10'
-	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'org.springframework.boot' version '2.6.9'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "com.github.node-gradle.node" version "3.1.0"
 }
-apply plugin: "com.ewerk.gradle.plugins.querydsl" // 쿼리 dsl
 
-
-group = 'com.review.monitoring'
+group = 'com.kjh'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -30,9 +17,14 @@ configurations {
 
 repositories {
 	mavenCentral()
+	gradlePluginPortal()
 }
-
 dependencies {
+	// npm
+	implementation 'com.github.node-gradle:gradle-node-plugin:3.1.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -51,31 +43,19 @@ dependencies {
 	implementation 'com.querydsl:querydsl-apt'
 }
 
-tasks.named('test') {
+tasks.named('test' 	) {
 	useJUnitPlatform()
 }
 
+node {
+	version = '16.3.0'
+	download = true
+	nodeModulesDir = file("${projectDir}/src/main/resources/static")
 
-//querydsl 추가
-def querydslDir = 'src/main/generated'
-//def querydslDir = "$buildDir/generated/querydsl"
-querydsl {
-	library = "com.querydsl:querydsl-apt"
-	jpa = true
-	querydslSourcesDir = querydslDir
 }
-
-sourceSets {
-	main {
-		java {
-			srcDirs = ['src/main/java', querydslDir]
-		}
-	}
+task copyFrontLib(type: Copy) {
+	from "${projectDir}/src/main/resources/static"
+	into "${projectDir}/build/resources/main/static/."
 }
-
-compileQuerydsl{
-	options.annotationProcessorPath = configurations.querydsl
-}
-configurations {
-	querydsl.extendsFrom compileClasspath
-}
+copyFrontLib.dependsOn npmInstall
+compileJava.dependsOn copyFrontLib
