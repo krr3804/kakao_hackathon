@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments.html :: head"></head>
+<head th:replace="fragments.html :: head">
+</head>
+
 <body>
-<div th:replace="fragments.html :: navbar"></div>
-<form role="form" action="/review/new" th:object="${?}" method="post">
+
+<form role="form" action="/review/new" method="post" accept-charset="UTF-8">
+
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-        <input type="email" th:field="*{?}" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-    </div>
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-        <textarea class="form-control" th:field="*{?}" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <label for="exampleFormControlTextarea1" class="form-label">상세 리뷰 작성</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required name="comment"></textarea>
     </div>
     <div style="float: left;">
-        <select class="form-select" th:field="*{?}" aria-label="Default select example">
-            <option selected>별점</option>
+        <select class="form-select" aria-label="Default select example" id="star" name="star">
+            <option value="none">별점</option>
             <option value="1">★</option>
             <option value="2">★★</option>
             <option value="3">★★★</option>
@@ -24,9 +23,19 @@
         </select>
     </div>
         <div style="float: right;">
-        <button type="submit" class="btn btn-dark ">입력</button>
+        <button type="submit" class="btn btn-dark " onclick="checkStar()">리뷰 등록</button>
         </div>
 
 </form>
 </body>
 </html>
+<script>
+        function checkStar() {
+            var s = document.getElementById("star");
+            var option = s.options[s.selectedIndex].value;
+            if(option === "none") {
+                alert("별점은 필수 항목입니다.")
+                return;
+            }
+        }
+</script>

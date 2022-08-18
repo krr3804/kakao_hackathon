@@ -19,6 +19,12 @@ repositories {
 	mavenCentral()
 	gradlePluginPortal()
 }
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
 dependencies {
 	// npm
 	implementation 'com.github.node-gradle:gradle-node-plugin:3.1.0'
@@ -53,6 +59,7 @@ node {
 	nodeModulesDir = file("${projectDir}/src/main/resources/static")
 
 }
+
 task copyFrontLib(type: Copy) {
 	from "${projectDir}/src/main/resources/static"
 	into "${projectDir}/build/resources/main/static/."
