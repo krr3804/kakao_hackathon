@@ -4,17 +4,17 @@
 <head th:replace="fragments.html :: head"></head>
 <body>
 <div th:replace="fragments.html :: navbar"></div>
-<Form>
+<form role="form" action="/review/new" th:object="${?}" method="post">
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <input type="email" th:field="*{?}" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
     </div>
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea class="form-control" th:field="*{?}" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
     <div style="float: left;">
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" th:field="*{?}" aria-label="Default select example">
             <option selected>별점</option>
             <option value="1">★</option>
             <option value="2">★★</option>
@@ -27,6 +27,6 @@
         <button type="submit" class="btn btn-dark ">입력</button>
         </div>
 
-</Form>
+</form>
 </body>
 </html>
