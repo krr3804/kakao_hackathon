@@ -22,10 +22,8 @@ public class TestScheduler {
 //    @Value("${jwt.secret}") String secret;
     private final TestElasticsearchRepository testElasticsearchRepository;
     private final ReviewRepositoryImpl reviewRepository;
-//    @Scheduled(fixedRate=300000)
-//    public void testScheduler(){
-//
-//        System.out.println(secret);
+    @Scheduled(fixedRate=300000)
+    public void testScheduler(){
 //        List<Review> reviewList = reviewRepository.getReviewData();
 //        System.out.println("start"+ reviewList.size());
 //        int cnt = 0;
@@ -46,5 +44,5 @@ public class TestScheduler {
 //                    .mu_keyword(r.getMu_keyword())
 //                    .build());
 //        }
-//    }
+    }
 }
