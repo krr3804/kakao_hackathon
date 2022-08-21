@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -21,12 +22,22 @@ public class AlramController {
         model.addAttribute("form", new AlramDTO());
         System.out.println(Keyword.values());
 
-        model.addAttribute("keyword", Keyword.values());
-        return "alramRegisterForm";
+        model.addAttribute("keywords", Keyword.values());
+        return "alram/alramRegisterForm";
     }
+
+     @PostMapping("/register")
+     public String alramRegister(AlramDTO form) {
+         AlramDTO alramData = new AlramDTO();
+         alramData.setFeedback(form.getFeedback());
+         alramData.setPercent(form.getPercent());
+         alramData.setKeyword(form.getKeyword());
+         System.out.println(alramData.toString());
+        return "redirect:/";
+     }
 
     @GetMapping("/alramlist")
     public String alramList(Model model) {
-        return "alramList";
+        return "alram/alramList";
     }
 }
