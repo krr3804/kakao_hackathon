@@ -1,30 +1,32 @@
 package com.review.monitoring.MonitoringSystem.review;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
 
 @Controller
+@RequestMapping("/review")
+@RequiredArgsConstructor
 public class ReviewController {
-    @Autowired
-    ReviewService reviewService;
-    @GetMapping("/")
-    public String getDashboard() {
-        return "dashboard";
-    }
+    private final ReviewService reviewService;
 
-    @GetMapping("/review")
+    @GetMapping("")
     public String getReviewForm() {
         return "reviewForm";
     }
 
-    @PostMapping("/review/new")
+    @PostMapping("/new")
     public String registerReview(Review review) {
+        review.setDate(LocalDateTime.now());
+
         if(reviewService.writeReview(review) == null) {
             return "redirect:/review";
         }
-        return "dashboard";
+        return "redirect:/";
     }
 }
