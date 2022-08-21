@@ -17,11 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/alram")
 public class AlramController {
     @GetMapping("/register")
-    public String alramRegisterFrom(Model model ) {
+    public String alramRegisterFrom(Model model) {
         model.addAttribute("form", new AlramDTO());
         System.out.println(Keyword.values());
 
         model.addAttribute("keyword", Keyword.values());
         return "alramRegisterForm";
+    }
+
+    @GetMapping("/alramlist")
+    public String alramList(Model model) {
+        return "alramList";
     }
 }
