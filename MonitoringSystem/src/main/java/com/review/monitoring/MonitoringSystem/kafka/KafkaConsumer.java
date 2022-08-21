@@ -29,9 +29,6 @@ public class KafkaConsumer {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-//        Goods entity = goodsService.getGoods((String)map.get("goods"));
-//        entity.setStock(entity.getStock() - (Integer) map.get("qty"));
-//        goodsService.saveGoods(entitdywmay);
 
     }
 }
