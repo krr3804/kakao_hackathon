@@ -1,9 +1,9 @@
 package com.review.monitoring.MonitoringSystem.monitor.user.controller;
 
-import com.review.monitoring.MonitoringSystem.monitor.domain.User;
-import com.review.monitoring.MonitoringSystem.monitor.user.service.UserManagementService;
+import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
+import com.review.monitoring.MonitoringSystem.monitor.user.service.MemberService;
 import com.review.monitoring.MonitoringSystem.monitor.user.session.SessionConstants;
-import com.review.monitoring.MonitoringSystem.monitor.vo.UserVO;
+import com.review.monitoring.MonitoringSystem.monitor.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class UserLoginController {
-    private final UserManagementService userManagementService;
+public class MemberLoginController {
+    private final MemberService memberService;
 
     @GetMapping("/login")
     public String loginForm() {
@@ -26,15 +26,15 @@ public class UserLoginController {
     }
 
     @PostMapping("/login")
-    public @ResponseBody String login(String userId, String password, HttpServletRequest request) {
-        User user = userManagementService.logIn(userId, password);
-        if(user == null) {
+    public @ResponseBody String login(String memberId, String password, HttpServletRequest request) {
+        Member member = memberService.logIn(memberId, password);
+        if(member == null) {
             return "fail";
         }
-        UserVO userVO = new UserVO(user.getId(),user.getEmail(),user.getDepartment().getName());
+        MemberVO memberVO = new MemberVO(member.getId(), member.getEmail(), member.getDepartment().getName());
 
         HttpSession httpSession = request.getSession();
-        httpSession.setAttribute(SessionConstants.LOGIN_USER,user);
+        httpSession.setAttribute(SessionConstants.LOGIN_MEMBER, memberVO);
         return "success";
     }
 

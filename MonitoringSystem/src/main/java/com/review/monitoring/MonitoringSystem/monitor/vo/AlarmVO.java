@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class AlarmVO {
+    private Long id;
+
     private Long feedback;
 
     private Long score;

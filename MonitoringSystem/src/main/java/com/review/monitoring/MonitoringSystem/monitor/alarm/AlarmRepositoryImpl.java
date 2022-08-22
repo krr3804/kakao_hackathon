@@ -3,6 +3,7 @@ package com.review.monitoring.MonitoringSystem.monitor.alarm;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
@@ -19,6 +20,7 @@ public class AlarmRepositoryImpl implements AlarmRepository{
 
     @Override
     public void delete(Long alarmId) {
-
+        Alarm alarm = em.find(Alarm.class, alarmId);
+        em.remove(alarm);
     }
 }

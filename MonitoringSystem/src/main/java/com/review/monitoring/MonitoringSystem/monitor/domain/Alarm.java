@@ -21,17 +21,17 @@ public class Alarm {
     private Keyword keyword;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     public Alarm() {
 
     }
 
-    public Alarm(Long feedback, Long score, Keyword keyword, User user) {
+    public Alarm(Long feedback, Long score, Keyword keyword, Member member) {
         this.feedback = feedback;
         this.score = score;
         this.keyword = keyword;
-        this.user = user;
+        this.member = member;
     }
 }

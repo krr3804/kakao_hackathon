@@ -14,7 +14,7 @@ pw = "whdgns1002@"
 db = pymysql.connect(
             host="localhost",
             port=3306,
-            user='root',
+            member='root',
             password=pw,
             db='kurly', charset='utf8', autocommit=True  # 실행결과확정
         )
