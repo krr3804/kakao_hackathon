@@ -1,7 +1,7 @@
 $(function() {
     $('#btnLogin').on("click", function(){
-        	var userId = $('#userId').val();
-        	if(userId == '') {
+        	var memberId = $('#memberId').val();
+        	if(memberId == '') {
         	    alert('아이디를 입력해주세요.');
         	    return;
         	}
@@ -10,7 +10,7 @@ $(function() {
         	    alert('비밀번호를 입력해주세요.');
         	    return;
         	}
-            var data = {userId : userId, password : password};
+            var data = {memberId : memberId, password : password};
             	$.ajax({
             		type : 'post',
             		url : '/login',

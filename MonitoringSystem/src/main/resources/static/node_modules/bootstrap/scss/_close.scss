@@ -30,7 +30,7 @@
   &:disabled,
   &.disabled {
     pointer-events: none;
-    user-select: none;
+    member-select: none;
     opacity: $btn-close-disabled-opacity;
   }
 }

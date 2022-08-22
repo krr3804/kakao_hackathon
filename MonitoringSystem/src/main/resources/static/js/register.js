@@ -1,15 +1,15 @@
 $(function() {
-    $('#userId').on("propertychange change keyup paste input", function(){
-    	var userId = $('#userId').val();
-    	if(userId == "") {
+    $('#memberId').on("propertychange change keyup paste input", function(){
+    	var memberId = $('#memberId').val();
+    	if(memberId == "") {
     	    $('#id_input_re_1').css("display","none");
             $('#id_input_re_2').css("display", "none");
             return;
     	}
-        var data = {userId : userId};
+        var data = {memberId : memberId};
         	$.ajax({
         		type : 'post',
-        		url : '/userIdCheck',
+        		url : '/memberIdCheck',
         		data : data,
         		success : function(result) {
         		    if(result != 'fail'){

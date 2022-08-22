@@ -9,9 +9,9 @@ import java.util.List;
 
 @Entity
 @Data
-public class User{
+public class Member {
     @Id
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "member_id", nullable = false)
     private String id;
 
     @Column(name ="password", nullable = false)
@@ -24,15 +24,23 @@ public class User{
     @Column(nullable = false)
     private Department department;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Alarm> conditions = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Alarm> alarms = new ArrayList<>();
 
-    public User() {}
+    public Member() {}
 
-    public User(String id, String password, String email, Department department) {
+    public Member(String id, String password, String email, Department department) {
         this.id = id;
         this.password = password;
         this.email = email;
         this.department = department;
+    }
+
+    public void addAlarm(Alarm alarm) {
+        alarms.add(alarm);
+    }
+
+    public void deleteAlarm(Long alarmId) {
+        alarms.removeIf(alarm -> alarm.getId().equals(alarmId));
     }
 }

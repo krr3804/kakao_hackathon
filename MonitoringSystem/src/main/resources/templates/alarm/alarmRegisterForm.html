@@ -14,15 +14,15 @@
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
 
-                            <form oninput="x.value=parseInt(customRange3.value)" th:object="${form}" method="post">
+                            <form oninput="x.value=parseInt(customRange3.value)" th:action="@{/alarm/add}" th:object="${AlarmVO}" method="post">
                                 <h3>기준</h3>
                                 <div class="mb-3">
-                                    <input type="range" th:field="*{percent}" class="form-range" min="50" max="100" step="0.5" id="customRange3">
+                                    <input type="range" th:field="*{score}" class="form-range" min="50" max="100" step="0.5" id="customRange3">
                                     <output name="x" for="a" value="50">75</output><br>
                                 </div>
                             <div class="mb-3">
                                 <h3>키워드</h3>
-                                <select class="form-select" th:field="*{Keyword}" aria-label="Default select example">
+                                <select class="form-select" th:field="*{keyword}" aria-label="Default select example">
                                     <option th:each="keyword : ${keywords}" th:value="${keyword}"
                                             th:text="${keyword}">FAST</option>
 
