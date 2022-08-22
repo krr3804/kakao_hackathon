@@ -1,11 +1,10 @@
-package com.review.monitoring.MonitoringSystem.monitor.repository;
+package com.review.monitoring.MonitoringSystem.monitor.user.repository;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -13,7 +12,7 @@ public class UserManagementRepositoryImpl implements UserManagementRepository{
     private final EntityManager em;
 
     @Override
-    public void insertUser(User user) {
+    public void insert(User user) {
         em.persist(user);
     }
 
@@ -31,7 +30,13 @@ public class UserManagementRepositoryImpl implements UserManagementRepository{
     }
 
     @Override
-    public void updateUser(User user) {
-        em.merge(user);
+    public User update(User user) {
+
+        return em.merge(user);
+    }
+
+    @Override
+    public void delete(String userId) {
+        em.remove(userId);
     }
 }

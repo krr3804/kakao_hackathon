@@ -1,12 +1,12 @@
-package com.review.monitoring.MonitoringSystem.monitor.repository;
+package com.review.monitoring.MonitoringSystem.monitor.user.repository;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.User;
 
-import java.util.List;
-
 public interface UserManagementRepository {
-    void insertUser(User user);
+    void insert(User user);
     int existById(String id);
     User selectOne(String userId);
-    void updateUser(User user);
+    User update(User user);
+
+    void delete(String userId);
 }

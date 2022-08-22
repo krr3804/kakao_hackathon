@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class User {
+public class User{
     @Id
     @Column(name = "user_id", nullable = false)
     private String id;
@@ -24,8 +24,8 @@ public class User {
     @Column(nullable = false)
     private Department department;
 
-    @OneToMany(mappedBy = "user")
-    private List<AlarmCondition> conditions = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Alarm> conditions = new ArrayList<>();
 
     public User() {}
 

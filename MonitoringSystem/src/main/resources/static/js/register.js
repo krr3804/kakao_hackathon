@@ -9,7 +9,7 @@ $(function() {
         var data = {userId : userId};
         	$.ajax({
         		type : 'post',
-        		url : '/user/userIdCheck',
+        		url : '/userIdCheck',
         		data : data,
         		success : function(result) {
         		    if(result != 'fail'){

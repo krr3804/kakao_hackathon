@@ -13,7 +13,7 @@ $(function() {
             var data = {userId : userId, password : password};
             	$.ajax({
             		type : 'post',
-            		url : '/user/login',
+            		url : '/login',
             		data : data,
             		success : function(result) {
             		    if(result == 'fail'){

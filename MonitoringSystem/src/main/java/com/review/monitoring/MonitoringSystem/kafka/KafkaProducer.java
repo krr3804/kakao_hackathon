@@ -2,7 +2,6 @@ package com.review.monitoring.MonitoringSystem.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.review.monitoring.MonitoringSystem.dto.ReviewDTO;
 import com.review.monitoring.MonitoringSystem.review.Review;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
