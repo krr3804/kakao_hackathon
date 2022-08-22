@@ -30,5 +30,8 @@ public class KafkaConsumer {
             e.printStackTrace();
         }
 
+
+
+
     }
 }
