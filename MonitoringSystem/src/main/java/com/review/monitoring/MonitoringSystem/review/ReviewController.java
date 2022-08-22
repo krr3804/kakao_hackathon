@@ -20,9 +20,14 @@ public class ReviewController {
         return "reviewForm";
     }
 
+    @GetMapping("/list")
+    public String getReviewList() {
+        return "reviewList";
+    }
+
     @PostMapping("/new")
     public String registerReview(Review review) {
-        review.setDate(LocalDateTime.now());
+//        review.setDate(LocalDateTime.now());
 
         if(reviewService.writeReview(review) == null) {
             return "redirect:/review";

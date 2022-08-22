@@ -6,10 +6,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Data
-public class User{
+public class User {
     @Id
     @Column(name = "user_id", nullable = false)
     private String id;
