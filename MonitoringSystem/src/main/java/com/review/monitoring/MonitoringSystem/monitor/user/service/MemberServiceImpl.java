@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
 
         return memberRepository.update(new Member(
                 member.getId(), updatedVO.getPassword(),
-                updatedVO.getEmail(), Department.of(updatedVO.getDepartment())));
+                updatedVO.getEmail(), Department.valueOf(member.getDepartment())));
     }
 
     @Override

@@ -19,11 +19,11 @@ public class AlarmServiceImpl implements AlarmService{
     public Alarm addAlarm(AlarmVO alarmVO, Member member) {
         if(member.getAlarms().stream().anyMatch(alarm -> alarm.getFeedback().equals(alarmVO.getFeedback())
                 && alarm.getScore().equals(alarmVO.getScore())
-                && alarm.getKeyword().equals(Keyword.of(alarmVO.getKeyword())))) {
+                && alarm.getKeyword().equals(Keyword.valueOf(alarmVO.getKeyword())))) {
             return null;
         }
         Alarm alarm = new Alarm(alarmVO.getFeedback(), alarmVO.getScore(),
-                Keyword.of(alarmVO.getKeyword()), member);
+                Keyword.valueOf(alarmVO.getKeyword()), member);
         member.addAlarm(alarm);
         return alarmRepository.insert(alarm);
     }

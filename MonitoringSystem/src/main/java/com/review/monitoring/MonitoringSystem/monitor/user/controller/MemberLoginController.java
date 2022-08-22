@@ -31,7 +31,7 @@ public class MemberLoginController {
         if(member == null) {
             return "fail";
         }
-        MemberVO memberVO = new MemberVO(member.getId(), member.getEmail(), member.getDepartment().getName());
+        MemberVO memberVO = new MemberVO(member.getId(), member.getEmail(), member.getDepartment().toString());
 
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute(SessionConstants.LOGIN_MEMBER, memberVO);

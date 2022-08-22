@@ -40,8 +40,8 @@ public class AlarmController {
         if(member == null) {
             return "redirect:/";
         }
-        model.addAttribute("form", new AlarmVO());
-        model.addAttribute("keywords", Department.of(member.getDepartment()).getKeywords());
+        model.addAttribute("alarmVO", new AlarmVO());
+        model.addAttribute("keywords", Department.valueOf(member.getDepartment()).getKeywords());
         return "alarm/alarmRegisterForm";
     }
 

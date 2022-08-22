@@ -26,7 +26,6 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public Member selectOne(String memberId) {
-        System.out.println("memberId = " + memberId);
         return em.find(Member.class, memberId);
     }
 
