@@ -34,7 +34,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public Member selectByNickname(String nickname) {
-        List<Member> data = em.createQuery("select m from Member m where m.nickname = :nickname ")
+        List<Member> data = em.createQuery("select m from Member m where m.nickname = :nickname ",Member.class)
                 .setParameter("nickname", nickname).setMaxResults(1).getResultList();
         if (data.size() == 0) {
             return null;

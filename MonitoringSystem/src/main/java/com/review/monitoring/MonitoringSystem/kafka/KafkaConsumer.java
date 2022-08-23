@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
+import com.review.monitoring.MonitoringSystem.monitor.notification.NotificationService;
 import com.review.monitoring.MonitoringSystem.monitor.user.alarm.AlarmService;
 import com.review.monitoring.MonitoringSystem.review.Review;
 import com.review.monitoring.MonitoringSystem.review.ReviewService;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class KafkaConsumer {
     private final ReviewServiceImpl reviewService;
     private final AlarmService alarmService;
+    private final NotificationService notificationService;
 
     @KafkaListener(topics = "complete")
     public void processMessage(String kafkaMessage) {
@@ -35,10 +37,15 @@ public class KafkaConsumer {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
+        //리뷰 넘겨 주면 알림 보냄
+        //sendNotification();
     }
 
-    private void sendNotification(Review review) {
+    public void sendNotification(Review review) {
         List<Member> members = alarmService.getAlarmedMembers(review);
+        String content = "알림 발생!";
+        members.stream().forEach(member -> {
+            notificationService.send(member, content, review);
+        });
     }
 }

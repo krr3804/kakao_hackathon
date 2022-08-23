@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -43,8 +44,8 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void send(Member receiver, Review review, String content) {
-        Notification notification = notificationRepository.save(createNotification(receiver,review,content));
+    public void send(Member receiver, String content, Review review) {
+        Notification notification = notificationRepository.save(createNotification(receiver,content,review));
         String receiverId = String.valueOf(receiver.getId());
         String eventId = receiverId + "_" + System.currentTimeMillis();
         Map<String, SseEmitter> emitters = emitterRepository.findAllEmitterStartWithByMemberId(receiverId);
@@ -54,7 +55,12 @@ public class NotificationServiceImpl implements NotificationService {
         });
     }
 
-    private Notification createNotification(Member receiver, Review review, String content) {
+    @Override
+    public List<Notification> getNotifications() {
+        return notificationRepository.findAll();
+    }
+
+    private Notification createNotification(Member receiver, String content, Review review) {
         return Notification.builder()
                 .receiver(receiver)
                 .content(content)

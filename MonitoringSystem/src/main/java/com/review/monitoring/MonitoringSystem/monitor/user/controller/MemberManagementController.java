@@ -26,7 +26,7 @@ public class MemberManagementController {
     private final MemberService memberService;
 
     @GetMapping("")
-    public String showMemberPage(@AuthenticationPrincipal Member member, Model model) {
+    public String showMemberPage(Model model) {
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
             return "redirect:/";
         }
@@ -35,7 +35,7 @@ public class MemberManagementController {
     }
 
     @GetMapping("/memberInfo")
-    public String showMemberInfo(@AuthenticationPrincipal Member member, Model model) {
+    public String showMemberInfo(Member member, Model model) {
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
             return "redirect:/";
         }
@@ -46,7 +46,7 @@ public class MemberManagementController {
     }
 
     @PostMapping("/edit")
-    public String updateMember(@AuthenticationPrincipal Member member, @Validated @ModelAttribute MemberVO updatedVO,
+    public String updateMember(@Validated @ModelAttribute MemberVO updatedVO,
                                BindingResult bindingResult) {
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
             return "redirect:/";
@@ -56,6 +56,8 @@ public class MemberManagementController {
             log.info("errors={}",bindingResult);
             return "redirect:/member/memberInfo";
         }
+        UserDetails memberDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member = memberService.getMemberByName(memberDetail.getUsername());
 
         Member updatedMember = memberService.updateMemberInfo(updatedVO,member);
 
@@ -63,17 +65,16 @@ public class MemberManagementController {
         return "redirect:/member/memberInfo";
     }
 
-//    @PostMapping("/delete")
-//    public String deleteMember(@SessionAttribute(name=SessionConstants.LOGIN_MEMBER) MemberVO member, HttpServletRequest request) {
-//        if(member == null) {
-//            return "redirect:/";
-//        }
-//        memberService.delete(member.getId());
-//
-//        HttpSession session = request.getSession(false);
-//        if(session != null) {
-//            session.invalidate();
-//        }
-//        return "redirect:/";
-//    }
+    @PostMapping("/delete")
+    public String deleteMember(HttpServletRequest request) {
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
+            return "redirect:/";
+        }
+        UserDetails memberDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member = memberService.getMemberByName(memberDetail.getUsername());
+
+        memberService.delete(member.getId());
+
+        return "redirect:/logout";
+    }
 }

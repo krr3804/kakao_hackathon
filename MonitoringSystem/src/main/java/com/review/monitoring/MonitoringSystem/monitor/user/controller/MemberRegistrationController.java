@@ -30,8 +30,11 @@ public class MemberRegistrationController {
         return "registerForm";
     }
     @PostMapping("/register")
-    public String register(MemberVO memberVO) {
-        System.out.println(memberVO.getDepartment());
+    public String register(@Validated @ModelAttribute MemberVO memberVO, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            log.info("errors = {}",bindingResult);
+            return "redirect:/register";
+        }
         Member member = new Member(memberVO.getNickname(), memberVO.getPassword(), memberVO.getEmail(), Department.valueOf("DELIVERY"));
 
         memberService.register(member);
@@ -49,19 +52,6 @@ public class MemberRegistrationController {
         }
         return "success";
     }
-
-//    @PostMapping("/register")
-//    public String register(@Validated @ModelAttribute MemberVO memberVO,
-//                           BindingResult bindingResult) {
-//        if(bindingResult.hasErrors()) {
-//            log.info("errors = {}",bindingResult);
-//            return "redirect:/registerForm";
-//        }
-//
-//        Member member = new Member(memberVO.getNickname(), memberVO.getPassword(), memberVO.getEmail(), Department.valueOf(memberVO.getDepartment()));
-//        memberService.register(member);
-//        return "redirect:/login";
-//    }
 
 
 }

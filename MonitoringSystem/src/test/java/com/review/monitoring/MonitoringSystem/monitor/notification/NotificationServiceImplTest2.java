@@ -52,7 +52,8 @@ class NotificationServiceImplTest2 {
         notificationService.subscribe(member.getId(), lastEventId);
 
         //when, then
-        Assertions.assertDoesNotThrow(() -> notificationService.send(member, review,"localhost:8080/review/1"));
+        Assertions.assertDoesNotThrow(() -> notificationService.send(member,"알림 발생!", review));
+        Assertions.assertEquals(notificationService.getNotifications(),1);
     }
 
     private Review createReview() {
