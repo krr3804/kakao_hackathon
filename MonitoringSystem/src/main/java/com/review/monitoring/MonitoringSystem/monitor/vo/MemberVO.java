@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class MemberVO {
     @NotBlank
-    private String id;
+    private String nickname;
     @NotBlank
     private String password;
     @NotBlank
@@ -20,7 +20,7 @@ public class MemberVO {
     }
 
     public MemberVO(String id, String email, String department) {
-        this.id = id;
+        this.nickname = nickname;
         this.email = email;
         this.department = department;
     }

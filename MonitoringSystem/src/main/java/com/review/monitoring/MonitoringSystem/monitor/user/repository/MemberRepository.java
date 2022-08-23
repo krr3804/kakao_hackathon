@@ -7,6 +7,7 @@ public interface MemberRepository {
     int existById(String id);
     Member selectOne(String memberId);
     Member update(Member member);
-
     void delete(String userId);
+
+
 }

@@ -1,4 +1,4 @@
-package com.review.monitoring.MonitoringSystem.monitor.alarm;
+package com.review.monitoring.MonitoringSystem.monitor.user.alarm;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Member;

@@ -1,4 +1,4 @@
-package com.review.monitoring.MonitoringSystem.monitor.alarm;
+package com.review.monitoring.MonitoringSystem.monitor.user.alarm;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Department;
@@ -28,7 +28,7 @@ public class AlarmController {
         if(user == null) {
             return "redirect:/";
         }
-        List<Alarm> alarms = memberService.getMember(user.getId()).getAlarms();
+        List<Alarm> alarms = memberService.getMember(user.getNickname()).getAlarms();
 
         model.addAttribute(alarms);
 
@@ -41,7 +41,7 @@ public class AlarmController {
             return "redirect:/";
         }
         model.addAttribute("form", new AlarmVO());
-        model.addAttribute("keywords", Department.of(member.getDepartment()).getKeywords());
+        model.addAttribute("keywords", Department.valueOf(member.getDepartment()).getKeywords());
         return "alarm/alarmRegisterForm";
     }
 
@@ -51,7 +51,7 @@ public class AlarmController {
         if(member == null) {
             return "redirect:/";
         }
-        Member selectedMember = memberService.getMember(member.getId());
+        Member selectedMember = memberService.getMember(member.getNickname());
 
         Alarm alarm = alarmService.addAlarm(alarmVO, selectedMember);
         if(alarm != null) {
@@ -62,9 +62,8 @@ public class AlarmController {
     }
 
     @GetMapping("delete/{id}")
-    public String deleteAlarm(@PathVariable("id") Long id,
-                              @SessionAttribute(name= SessionConstants.LOGIN_MEMBER) MemberVO member) {
-        Member selectedMember = memberService.getMember(member.getId());
+    public String deleteAlarm(@PathVariable("id") Long id, @SessionAttribute(name= SessionConstants.LOGIN_MEMBER) MemberVO member) {
+        Member selectedMember = memberService.getMember(member.getNickname());
         alarmService.deleteAlarm(id,selectedMember);
         return "redirect:/alarm";
     }

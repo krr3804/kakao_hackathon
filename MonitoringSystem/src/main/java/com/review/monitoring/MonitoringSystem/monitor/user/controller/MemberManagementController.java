@@ -66,7 +66,7 @@ public class MemberManagementController {
         if(member == null) {
             return "redirect:/";
         }
-        memberService.delete(member.getId());
+        memberService.delete(member.getNickname());
 
         HttpSession session = request.getSession(false);
         if(session != null) {

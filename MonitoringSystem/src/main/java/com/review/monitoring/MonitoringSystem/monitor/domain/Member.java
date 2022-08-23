@@ -11,8 +11,10 @@ import java.util.List;
 public class Member {
     @Id
     @Column(name = "member_id", nullable = false)
-    private String id;
+    @GeneratedValue
+    private Long id;
 
+    private String nickname;
     @Column(name ="password", nullable = false)
     private String password;
 
@@ -28,8 +30,8 @@ public class Member {
 
     public Member() {}
 
-    public Member(String id, String password, String email, Department department) {
-        this.id = id;
+    public Member(String Id, String password, String email, Department department) {
+        this.nickname = Id;
         this.password = password;
         this.email = email;
         this.department = department;

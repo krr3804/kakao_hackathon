@@ -5,14 +5,20 @@ import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
 import com.review.monitoring.MonitoringSystem.monitor.user.repository.MemberRepository;
 import com.review.monitoring.MonitoringSystem.monitor.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
-
+public class MemberServiceImpl implements MemberService, UserDetailsService {
+//    private final JPAMemberRepository jpaMemberRepository;
     private final MemberRepository memberRepository;
 
     @Override
@@ -31,17 +37,64 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.selectOne(id);
     }
 
+
     @Override
     public Member logIn(String id, String password) {
         Member member = memberRepository.selectOne(id);
-        if(member == null) {
+        System.out.println("???" + member.getNickname());
+        if ( member == null){
             return null;
         }
-        if(!member.getPassword().equals(password)) {
+        if (!member.getPassword().equals(password)) {
             return null;
         }
+        System.out.println("?여기까진 오나?");
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                new UserAccount(member),
+                member.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_MANAGER")));
+        SecurityContextHolder.getContext().setAuthentication(token);
+        System.out.println(member.getNickname());
         return member;
     }
+    @Transactional(readOnly = true)
+    @Override
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        System.out.println(id);
+        Member member = memberRepository.selectOne(id);
+
+        if (member == null) {
+            throw new UsernameNotFoundException(id);
+        }
+
+        return new UserAccount(member);
+    }
+//    @Override
+//    public Member logIn(String id, String password) {
+//        Member member = memberRepository.selectOne(id);
+//        if(member == null) {
+//            return null;
+//        }
+//        if(!member.getPassword().equals(password)) {
+//            return null;
+//        }
+//        return member;
+//    }
+//    @Transactional(readOnly = true)
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Member member = jpaMemberRepository.findByEmail(email);
+//        if (member == null) {
+//            member = accountRepository.findByNickname(emailOrNickname);
+//        }
+//
+//        if (account == null) {
+//            throw new UsernameNotFoundException(emailOrNickname);
+//        }
+//
+//        return new UserAccount(account);
+//    }
+
 
     @Override
     @Transactional
@@ -52,8 +105,8 @@ public class MemberServiceImpl implements MemberService {
         }
 
         return memberRepository.update(new Member(
-                member.getId(), updatedVO.getPassword(),
-                updatedVO.getEmail(), Department.of(updatedVO.getDepartment())));
+                member.getNickname(), updatedVO.getPassword(),
+                updatedVO.getEmail(), Department.valueOf(updatedVO.getDepartment())));
     }
 
     @Override
@@ -61,4 +114,6 @@ public class MemberServiceImpl implements MemberService {
     public void delete(String memberId) {
         memberRepository.delete(memberId);
     }
+
+
 }

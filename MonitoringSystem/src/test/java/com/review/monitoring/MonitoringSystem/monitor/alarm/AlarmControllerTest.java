@@ -1,9 +1,8 @@
 package com.review.monitoring.MonitoringSystem.monitor.alarm;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
-import com.review.monitoring.MonitoringSystem.monitor.domain.Keyword;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
-import com.review.monitoring.MonitoringSystem.monitor.user.repository.MemberRepository;
+import com.review.monitoring.MonitoringSystem.monitor.user.alarm.AlarmService;
 import com.review.monitoring.MonitoringSystem.monitor.user.service.MemberService;
 import com.review.monitoring.MonitoringSystem.monitor.vo.AlarmVO;
 import org.junit.jupiter.api.Assertions;

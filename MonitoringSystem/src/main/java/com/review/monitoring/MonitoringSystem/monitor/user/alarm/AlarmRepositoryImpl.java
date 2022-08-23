@@ -1,9 +1,8 @@
-package com.review.monitoring.MonitoringSystem.monitor.alarm;
+package com.review.monitoring.MonitoringSystem.monitor.user.alarm;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 

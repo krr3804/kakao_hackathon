@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,7 +28,13 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public Member selectOne(String memberId) {
         System.out.println("memberId = " + memberId);
-        return em.find(Member.class, memberId);
+        List<Member> data =  em.createQuery("select m from Member m where m.nickname = :memberId ")
+                .setParameter("memberId",memberId).setMaxResults(1).getResultList();
+        if (data.size() == 0) {
+            return null;
+        }
+
+        return data.get(0);
     }
 
     @Override

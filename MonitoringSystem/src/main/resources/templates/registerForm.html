@@ -1,23 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css" />
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/node_modules/jdenticon/dist/jdenticon.min.js"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}"/>
-    <script src=/js/register.js></script>
-    <style>
-        .container {
-            max-width: 100%;
-        }
-    </style>
-</head>
+<head th:replace="fragments.html :: head"></head>
 <body>
+<div th:replace="fragments.html :: navbar"></div>
 <section class="vh-100 bg-image">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
@@ -27,23 +13,23 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">회원가입</h2>
 
-                            <form name="joinForm" action="/register" method="post" accept-charset="UTF-8">
+                            <form name="joinForm" method="post" th:action="@{/register}" th:object="${memberVO}" accept-charset="UTF-8">
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="memberId">아이디</label>
                                     <span id="id_input_re_1">사용 가능한 아이디입니다.</span>
                                     <span id="id_input_re_2">아이디가 이미 존재합니다.</span>
-                                    <input type="text" name="id" id="memberId" class="form-control form-control-lg" required />
+                                    <input type="text" name="id" id="memberId" th:field="*{nickname}" class="form-control form-control-lg" required />
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="email">이메일</label>
-                                    <input type="email" name="email" id="email" class="form-control form-control-lg" required />
+                                    <input type="email" name="email" th:field="*{email}" id="email" class="form-control form-control-lg" required />
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="password">비밀번호</label>
-                                    <input type="password" name="password" id="password" class="form-control form-control-lg" required />
+                                    <input type="password" name="password" th:field="*{password}" id="password" class="form-control form-control-lg" required />
                                 </div>
 
                                 <div class="form-outline mb-4">
@@ -58,18 +44,18 @@
 
                                     <div class="form-check form-check-inline mb-0 me-4">
                                         <input class="form-check-input" type="radio" name="department" id="delivery"
-                                               value="delivery" />
-                                        <label class="form-check-label" for="delivery">배송</label>
+                                               value="delivery" th:field="*{department}" />
+                                        <label class="form-check-label" for="DELIVERY">배송</label>
                                     </div>
 
                                     <div class="form-check form-check-inline mb-0 me-4">
-                                        <input class="form-check-input" type="radio" name="department" id="quality"
+                                        <input class="form-check-input" th:field="*{department}" type="radio" name="department" id="quality"
                                                value="quality" />
                                         <label class="form-check-label" for="quality">품질</label>
                                     </div>
 
                                     <div class="form-check form-check-inline mb-0">
-                                        <input class="form-check-input" type="radio" name="department" id="customerService"
+                                        <input class="form-check-input" th:field="*{department}" type="radio" name="department" id="customerService"
                                                value="customerService" />
                                         <label class="form-check-label" for="customerService">CS</label>
                                     </div>

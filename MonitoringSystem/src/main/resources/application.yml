@@ -22,9 +22,9 @@ spring:
       hibernate:
         type: trace
 elasticsearch:
-  host: 127.0.0.1
+  host: 52.44.127.67
   port: 9200
 
 
 kafka:
-  serverIP: 44.209.59.22:9092
+  serverIP: http://52.44.127.67/:9092

@@ -7,7 +7,7 @@ public interface MemberService {
     int checkDuplicateMember(String id);
     void register(Member member);
 
-    Member getMember(String id);
+    Member getMember(String nickname);
     Member logIn(String id, String password);
     Member updateMemberInfo(MemberVO memberVO, MemberVO user);
 
