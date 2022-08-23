@@ -1,11 +1,10 @@
-package com.review.monitoring.MonitoringSystem.monitor.alarm;
+package com.review.monitoring.MonitoringSystem.monitor.user.alarm;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
 import com.review.monitoring.MonitoringSystem.review.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -22,8 +21,14 @@ public class AlarmRepositoryImpl implements AlarmRepository{
     }
 
     @Override
-    public List<Member> selectUsers(Review review) {
-        return null;
+    public List<Member> selectMembersByAlarm(Review review) {
+        return em.createQuery("SELECT m.member_id, m.department, m.email FROM member m join alarm a on m.member_id = a.member_id " +
+                        "where a.feedback = :/feedback or a.keyword = :/keyword or a.score >= :/score " +
+                        "group by m.member_id", Member.class)
+                .setParameter("feedback", review.getFeedback())
+                .setParameter("keyword", review.getMu_keyword())
+                .setParameter("score", review.getScore())
+                .getResultList();
     }
 
 

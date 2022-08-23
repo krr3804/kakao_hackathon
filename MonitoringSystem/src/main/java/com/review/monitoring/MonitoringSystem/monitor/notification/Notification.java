@@ -11,11 +11,11 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(of = "id")
+//@EqualsAndHashCode(of = "id")
 public class Notification{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "notification_id")
     private Long id;
 
@@ -23,9 +23,9 @@ public class Notification{
     @Embedded
     private NotificationContent content;
 
-
     @Getter
-    @Embedded
+    @ManyToOne
+    @JoinColumn(name = "review_id")
     private Review review;
 
     @Getter

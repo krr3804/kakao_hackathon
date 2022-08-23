@@ -1,12 +1,15 @@
-package com.review.monitoring.MonitoringSystem.monitor.alarm;
+package com.review.monitoring.MonitoringSystem.monitor.user.alarm;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Keyword;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
 import com.review.monitoring.MonitoringSystem.monitor.vo.AlarmVO;
+import com.review.monitoring.MonitoringSystem.review.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,11 @@ public class AlarmServiceImpl implements AlarmService{
                 Keyword.valueOf(alarmVO.getKeyword()), member);
         member.addAlarm(alarm);
         return alarmRepository.insert(alarm);
+    }
+
+    @Override
+    public List<Member> getAlarmedMembers(Review review) {
+        return alarmRepository.selectMembersByAlarm(review);
     }
 
     @Override

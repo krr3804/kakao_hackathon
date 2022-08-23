@@ -7,11 +7,8 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 public class MemberVO {
-    private Long id;
-
     @NotBlank
     private String nickname;
-
     @NotBlank
     private String password;
     @NotBlank
@@ -25,8 +22,7 @@ public class MemberVO {
 
     public static MemberVO create(Member member) {
         MemberVO memberVO = new MemberVO();
-        memberVO.setId(member.getId());
-        memberVO.setNickname(member.getNickName());
+        memberVO.setNickname(member.getNickname());
         memberVO.setPassword(member.getPassword());
         memberVO.setEmail(member.getEmail());
         memberVO.setDepartment(member.getDepartment().toString());

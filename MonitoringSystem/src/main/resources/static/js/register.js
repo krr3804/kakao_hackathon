@@ -1,12 +1,12 @@
 $(function() {
-    $('#memberId').on("propertychange change keyup paste input", function(){
-    	var memberId = $('#memberId').val();
-    	if(memberId == "") {
+    $('#btnCheckName').on("click", function(){
+    	var nickname = $('#nickname').val();
+    	if(nickname == "") {
     	    $('#id_input_re_1').css("display","none");
             $('#id_input_re_2').css("display", "none");
             return;
     	}
-        var data = {memberId : memberId};
+        var data = {nickname : nickname};
         	$.ajax({
         		type : 'post',
         		url : '/memberIdCheck',

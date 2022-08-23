@@ -18,9 +18,7 @@ public class Member {
     @Column(name = "member_id", nullable = false)
     @GeneratedValue
     private Long id;
-
-    private String nickName;
-
+    private String nickname;
     @Column(name ="password", nullable = false)
     private String password;
 
@@ -34,9 +32,8 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Alarm> alarms = new ArrayList<>();
 
-
     public Member(String nickName, String password, String email, Department department) {
-        this.nickName = nickName;
+        this.nickname = nickName;
         this.password = password;
         this.email = email;
         this.department = department;
@@ -49,4 +46,5 @@ public class Member {
     public void deleteAlarm(Long alarmId) {
         alarms.removeIf(alarm -> alarm.getId().equals(alarmId));
     }
+
 }

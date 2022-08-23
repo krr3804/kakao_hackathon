@@ -1,9 +1,8 @@
 package com.review.monitoring.MonitoringSystem.monitor.alarm;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Alarm;
-import com.review.monitoring.MonitoringSystem.monitor.domain.Keyword;
 import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
-import com.review.monitoring.MonitoringSystem.monitor.user.repository.MemberRepository;
+import com.review.monitoring.MonitoringSystem.monitor.user.alarm.AlarmService;
 import com.review.monitoring.MonitoringSystem.monitor.user.service.MemberService;
 import com.review.monitoring.MonitoringSystem.monitor.vo.AlarmVO;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +25,7 @@ class AlarmControllerTest {
     @Test
     @Transactional
     void addAlarmCondition() {
-        Member member = memberService.getMember("test");
+        Member member = memberService.getMember(1L);
         AlarmVO alarmVO = new AlarmVO();
         alarmVO.setFeedback(1L);
         alarmVO.setScore(69L);

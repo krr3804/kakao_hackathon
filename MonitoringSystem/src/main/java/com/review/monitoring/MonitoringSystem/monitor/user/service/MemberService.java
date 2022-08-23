@@ -4,12 +4,13 @@ import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
 import com.review.monitoring.MonitoringSystem.monitor.vo.MemberVO;
 
 public interface MemberService {
-    int checkDuplicateMember(String nickName);
+    int checkDuplicateMember(String nickname);
     void register(Member member);
 
     Member getMember(Long id);
-    Member logIn(Long id, String password);
-    Member updateMemberInfo(MemberVO memberVO, MemberVO user);
 
+    Member getMemberByName(String nickname);
+    Member logIn(String nickname, String password);
+    Member updateMemberInfo(MemberVO updatedVO, Member member);
     void delete(Long memberId);
 }

@@ -26,10 +26,12 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
+	// security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	// kafka
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	implementation 'org.springframework.kafka:spring-kafka'
-
 
 	// npm
 	implementation 'com.github.node-gradle:gradle-node-plugin:3.1.0'
@@ -47,10 +49,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-
 	//querydsl 추가
 	implementation 'com.querydsl:querydsl-jpa'
-//querydsl 추가
 	implementation 'com.querydsl:querydsl-apt'
 }
 

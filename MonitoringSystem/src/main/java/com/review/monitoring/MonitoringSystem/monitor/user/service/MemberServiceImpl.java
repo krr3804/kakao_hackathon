@@ -5,19 +5,24 @@ import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
 import com.review.monitoring.MonitoringSystem.monitor.user.repository.MemberRepository;
 import com.review.monitoring.MonitoringSystem.monitor.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
-
+public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public int checkDuplicateMember(String id) {
-        return memberRepository.existById(id);
+    public int checkDuplicateMember(String nickname) {
+        return memberRepository.existByNickname(nickname);
     }
 
     @Override
@@ -32,28 +37,56 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member logIn(Long id, String password) {
-        Member member = memberRepository.selectOne(id);
-        if(member == null) {
+    public Member getMemberByName(String nickname) {
+        return memberRepository.selectByNickname(nickname);
+    }
+
+
+    @Override
+    public Member logIn(String nickname, String password) {
+        Member member = memberRepository.selectByNickname(nickname);
+        if (member == null){
             return null;
         }
-        if(!member.getPassword().equals(password)) {
+        if (!member.getPassword().equals(password)) {
             return null;
         }
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                new UserAccount(member),
+                member.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_MANAGER")));
+        SecurityContextHolder.getContext().setAuthentication(token);
         return member;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
+        Member member = memberRepository.selectByNickname(nickname);
+
+        if (member == null) {
+            throw new UsernameNotFoundException(nickname);
+        }
+
+        return new UserAccount(member);
     }
 
     @Override
     @Transactional
-    public Member updateMemberInfo(MemberVO updatedVO, MemberVO member) {
-        if(updatedVO.getEmail().equals(member.getEmail())
-                && updatedVO.getDepartment().equals(member.getDepartment())) {
+    public Member updateMemberInfo(MemberVO updatedVO, Member member) {
+        if(updatedVO.getEmail().equals(member.getEmail()) &&
+                updatedVO.getDepartment().equals(member.getDepartment())) {
             return null;
         }
 
-        return memberRepository.update(new Member(
-                member.getNickname(), updatedVO.getPassword(),
-                updatedVO.getEmail(), Department.valueOf(member.getDepartment())));
+        if(!updatedVO.getEmail().equals(member.getEmail())) {
+            member.setEmail(updatedVO.getEmail());
+        }
+        if(!updatedVO.getDepartment().equals(member.getDepartment())) {
+            member.setDepartment(Department.valueOf(updatedVO.getDepartment()));
+        }
+
+        return memberRepository.update(member);
     }
 
     @Override
@@ -61,4 +94,5 @@ public class MemberServiceImpl implements MemberService {
     public void delete(Long memberId) {
         memberRepository.delete(memberId);
     }
+
 }

@@ -13,7 +13,9 @@ public class NotificationController {
     @GetMapping(value = "/subscribe/{id}", produces = "text/event-stream")
     @ResponseStatus(HttpStatus.OK)
     public SseEmitter subscribe(@PathVariable Long id,
-                                @RequestHeader(value = "Last-Event-ID", required = false) String lastEventId) {
-        return notificationService.subscribe(id,lastEventId);
+                                @RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId) {
+        System.out.println("id = " + id);
+        SseEmitter sseEmitter =notificationService.subscribe(id,lastEventId);
+        return sseEmitter;
     }
 }
