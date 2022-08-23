@@ -1,6 +1,7 @@
 package com.review.monitoring.MonitoringSystem.review;
 
 import com.review.monitoring.MonitoringSystem.monitor.domain.Department;
+import com.review.monitoring.MonitoringSystem.monitor.domain.Keyword;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,5 +38,5 @@ public class Review {
     private String comment;
 
     @Column(nullable = true)
-    private String mu_keyword;
+    private Keyword mu_keyword;
 }

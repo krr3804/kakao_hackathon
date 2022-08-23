@@ -24,11 +24,11 @@ public class AlarmController {
     private final MemberService memberService;
 
     @GetMapping("")
-    public String showAlarmPage(Model model, @SessionAttribute(name= SessionConstants.LOGIN_MEMBER) MemberVO user) {
-        if(user == null) {
+    public String showAlarmPage(Model model, @SessionAttribute(name= SessionConstants.LOGIN_MEMBER) MemberVO member) {
+        if(member == null) {
             return "redirect:/";
         }
-        List<Alarm> alarms = memberService.getMember(user.getId()).getAlarms();
+        List<Alarm> alarms = memberService.getMember()
 
         model.addAttribute(alarms);
 

@@ -27,12 +27,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getMember(String id) {
+    public Member getMember(Long id) {
         return memberRepository.selectOne(id);
     }
 
     @Override
-    public Member logIn(String id, String password) {
+    public Member logIn(Long id, String password) {
         Member member = memberRepository.selectOne(id);
         if(member == null) {
             return null;
@@ -52,13 +52,13 @@ public class MemberServiceImpl implements MemberService {
         }
 
         return memberRepository.update(new Member(
-                member.getId(), updatedVO.getPassword(),
+                member.getNickname(), updatedVO.getPassword(),
                 updatedVO.getEmail(), Department.valueOf(member.getDepartment())));
     }
 
     @Override
     @Transactional
-    public void delete(String memberId) {
+    public void delete(Long memberId) {
         memberRepository.delete(memberId);
     }
 }

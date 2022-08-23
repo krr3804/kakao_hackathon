@@ -17,7 +17,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public int existById(String id) {
+    public int existById(Long id) {
         return em.createQuery("select m from Member m where m.id = :memberId")
                 .setParameter("memberId",id)
                 .setMaxResults(1)
@@ -25,7 +25,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Member selectOne(String memberId) {
+    public Member selectOne(Long memberId) {
         return em.find(Member.class, memberId);
     }
 
@@ -36,7 +36,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public void delete(String memberId) {
+    public void delete(Long memberId) {
         em.remove(memberId);
     }
 }

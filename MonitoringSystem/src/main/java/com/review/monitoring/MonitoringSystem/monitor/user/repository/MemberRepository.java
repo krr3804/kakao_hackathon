@@ -4,9 +4,9 @@ import com.review.monitoring.MonitoringSystem.monitor.domain.Member;
 
 public interface MemberRepository {
     void insert(Member member);
-    int existById(String id);
-    Member selectOne(String memberId);
+    int existById(Long id);
+    Member selectOne(Long memberId);
     Member update(Member member);
 
-    void delete(String userId);
+    void delete(Long userId);
 }

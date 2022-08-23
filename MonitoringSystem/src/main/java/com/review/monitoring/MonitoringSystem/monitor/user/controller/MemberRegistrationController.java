@@ -44,7 +44,7 @@ public class MemberRegistrationController {
             return "redirect:/registerForm";
         }
 
-        Member member = new Member(memberVO.getId(), memberVO.getPassword(), memberVO.getEmail(), Department.valueOf(memberVO.getDepartment()));
+        Member member = new Member(memberVO.getNickname(), memberVO.getPassword(), memberVO.getEmail(), Department.valueOf(memberVO.getDepartment()));
         memberService.register(member);
         memberVO.setPassword(null);
         HttpSession httpSession = request.getSession();
