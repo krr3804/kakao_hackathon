@@ -35,6 +35,9 @@ public class MemberRepositoryImpl implements MemberRepository {
         }
 
         return data.get(0);
+//=======
+//        return em.find(Member.class, memberId);
+//>>>>>>> 6a4fd382bdc4ed348a5200769db1f2d5a7e827cb
     }
 
     @Override

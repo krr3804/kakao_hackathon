@@ -51,4 +51,24 @@ public class MemberRegistrationController {
         }
         return "success";
     }
+//<<<<<<< HEAD
+//=======
+//
+//    @PostMapping("/register")
+//    public String register(HttpServletRequest request,
+//                           @Validated @ModelAttribute MemberVO memberVO,
+//                           BindingResult bindingResult) {
+//        if(bindingResult.hasErrors()) {
+//            log.info("errors = {}",bindingResult);
+//            return "redirect:/registerForm";
+//        }
+//
+//        Member member = new Member(memberVO.getId(), memberVO.getPassword(), memberVO.getEmail(), Department.valueOf(memberVO.getDepartment()));
+//        memberService.register(member);
+//        memberVO.setPassword(null);
+//        HttpSession httpSession = request.getSession();
+//        httpSession.setAttribute(SessionConstants.LOGIN_MEMBER, memberVO);
+//        return "redirect:/";
+//    }
+//>>>>>>> 6a4fd382bdc4ed348a5200769db1f2d5a7e827cb
 }

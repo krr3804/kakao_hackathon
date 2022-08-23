@@ -105,8 +105,13 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         }
 
         return memberRepository.update(new Member(
+<<<<<<< HEAD
                 member.getNickname(), updatedVO.getPassword(),
                 updatedVO.getEmail(), Department.valueOf(updatedVO.getDepartment())));
+=======
+                member.getId(), updatedVO.getPassword(),
+                updatedVO.getEmail(), Department.valueOf(member.getDepartment())));
+>>>>>>> 6a4fd382bdc4ed348a5200769db1f2d5a7e827cb
     }
 
     @Override
